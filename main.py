@@ -1,15 +1,13 @@
 def on_up_pressed():
-    guy.ay = -500
+    guy.ay = -800
     pause(300)
-    guy.ay = 400
+    guy.ay = 500
 controller.up.on_event(ControllerButtonEvent.PRESSED, on_up_pressed)
 
 def on_on_overlap(sprite3, otherSprite3):
     global points
     points += -1
     info.change_score_by(-1)
-    if 1 > points:
-        game.over(False)
     pause(2000)
 sprites.on_overlap(SpriteKind.player, SpriteKind.projectile, on_on_overlap)
 
@@ -120,8 +118,9 @@ def on_on_overlap2(sprite, otherSprite):
                     ....................................................................................................
         """),
         SpriteKind.food)
+    trophy.set_scale(0.7, ScaleAnchor.RIGHT)
     trophy.set_position(randint(140, 175), randint(46, 51))
-    trophy.set_velocity(-50, 0)
+    trophy.set_velocity(-60, 0)
 sprites.on_overlap(SpriteKind.food, SpriteKind.enemy, on_on_overlap2)
 
 def on_on_overlap3(sprite2, otherSprite2):
@@ -233,11 +232,9 @@ def on_on_overlap3(sprite2, otherSprite2):
                     ....................................................................................................
         """),
         SpriteKind.food)
-    trophy.set_scale(0.5, ScaleAnchor.RIGHT)
+    trophy.set_scale(0.7, ScaleAnchor.RIGHT)
     trophy.set_position(randint(140, 175), randint(46, 51))
-    trophy.set_velocity(-50, 0)
-    if 9 < points:
-        game.over(True)
+    trophy.set_velocity(-60, 0)
 sprites.on_overlap(SpriteKind.food, SpriteKind.player, on_on_overlap3)
 
 def on_on_overlap4(sprite4, otherSprite4):
@@ -348,13 +345,12 @@ def on_on_overlap4(sprite4, otherSprite4):
         """),
         SpriteKind.projectile)
     spike.set_position(randint(90, 80), randint(90, 115))
-    spike.set_velocity(-50, 0)
+    spike.set_velocity(-60, 0)
 sprites.on_overlap(SpriteKind.projectile, SpriteKind.enemy, on_on_overlap4)
 
 spike: Sprite = None
 guy: Sprite = None
 trophy: Sprite = None
-points = 0
 thing = sprites.create(img("""
         1111111111111111....................................................................................
             1111111111111111....................................................................................
@@ -512,7 +508,7 @@ thing.set_position(37, 63)
 points = 1
 info.set_score(1)
 tiles.set_current_tilemap(tilemap("""
-    level11
+    level2
 """))
 scene.set_background_image(img("""
     9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999
@@ -638,7 +634,7 @@ scene.set_background_image(img("""
 """))
 scene.set_background_color(7)
 game.splash("use arrow keys to control")
-game.splash("if you hit the spike you lose a point, if you touch the trophy you get a point. If you get to zero points you lose. If you get to 10 points you win!")
+game.splash("if you hit the spike you lose a point, if you touch the trophy you get a point. If you get to zero points you lose.")
 trophy = sprites.create(img("""
         ....................................................................................................
             ....................................................................................................
@@ -955,8 +951,8 @@ guy.set_position(5, 117)
 trophy.set_position(158, 30)
 scene.camera_follow_sprite(guy)
 guy.set_stay_in_screen(True)
-spike.set_velocity(-50, 0)
-trophy.set_velocity(-50, 0)
+spike.set_velocity(-60, 0)
+trophy.set_velocity(-60, 0)
 
 def on_forever():
     music.play_melody("C D E F G A B C5 ", 180)
